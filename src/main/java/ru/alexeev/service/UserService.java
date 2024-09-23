@@ -58,7 +58,7 @@ public class UserService {
                 throw new Exception("Пользователь не найден");
             }
 
-            var userInfo = responseList.getFirst();
+            var userInfo = responseList.get(0);
 
             // Получаем информацию о членстве в группе
             var groupMemberResponse = vkWebClient.get()
