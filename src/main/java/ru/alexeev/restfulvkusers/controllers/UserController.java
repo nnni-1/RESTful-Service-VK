@@ -10,5 +10,4 @@ import ru.alexeev.restfulvkusers.service.UserService;
 public class UserController {
     @Autowired
     private final UserService service;
-
 }
