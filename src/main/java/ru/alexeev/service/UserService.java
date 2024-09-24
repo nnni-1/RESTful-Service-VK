@@ -3,6 +3,9 @@ package ru.alexeev.service;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.alexeev.dto.RequestDto;
@@ -17,6 +20,7 @@ import java.util.Map;
  */
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = "response")
 public class UserService {
 
     /**
@@ -35,6 +39,7 @@ public class UserService {
      * @throws Exception если возникает ошибка при получении информации
      */
     @SneakyThrows
+    @CachePut
     public ResponseDto getUserInfo(@Valid RequestDto requestDto, String token) {
         try {
             // Получаем информацию о пользователе
