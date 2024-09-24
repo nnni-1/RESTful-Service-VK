@@ -7,9 +7,11 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.alexeev.dto.RequestDto;
 import ru.alexeev.dto.ResponseDto;
+import ru.alexeev.exception.BadRequestException;
 
 import java.util.List;
 import java.util.Map;
@@ -41,6 +43,9 @@ public class UserService {
     @SneakyThrows
     @CachePut
     public ResponseDto getUserInfo(@Valid RequestDto requestDto, String token) {
+        if (requestDto == null || requestDto.getGroup_id() == 0 || requestDto.getUser_id() == 0) {
+            throw new BadRequestException("Invalid request");
+        }
         try {
             // Получаем информацию о пользователе
              var userInfoResponse = vkWebClient.get()
@@ -55,7 +60,7 @@ public class UserService {
                             .block();
 
             if (userInfoResponse == null || !userInfoResponse.containsKey("response")) {
-                throw new Exception("Не удалось получить информацию о пользователе");
+                throw new BadRequestException("Ошибка в аргументах");
             }
 
             var responseList = (List<Map<String, Object>>) userInfoResponse.get("response");
