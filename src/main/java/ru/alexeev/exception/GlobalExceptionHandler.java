@@ -11,6 +11,13 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Класс, аннотированный {@link @RestControllerAdvice} - собственный класс-обёртка обработки ошибок,
+ * представляющий собой специальную структуру, которая будет перехватывать исключения и возвращать понятный и
+ * структурированный ответ. Также были определены свои кастомные классы исключений для
+ * логического разделения типов ошибок.
+ */
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

@@ -66,7 +66,7 @@ public class ServiceTests {
         // Создаем некорректный объект запроса
         var invalidRequest = new RequestDto();
         // Не заполняем обязательные поля userId и groupId
-        
+
         var requestJson = objectMapper.writeValueAsString(invalidRequest);
 
         // Выполняем POST запрос с заголовком vk_service_token
